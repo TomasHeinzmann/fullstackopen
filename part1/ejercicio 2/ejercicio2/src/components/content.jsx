@@ -1,7 +1,9 @@
 const Content = (props) => {
-    return (
+        return (
         <div>
-            <p>{props.part} has {props.exercices} exercices</p>
+            <p>{props.parts[0].name} has exercises {props.parts[0].exercises}</p>
+            <p>{props.parts[1].name} has exercises {props.parts[1].exercises}</p>
+            <p>{props.parts[2].name} has exercises {props.parts[2].exercises}</p>
         </div>
     )
 }
