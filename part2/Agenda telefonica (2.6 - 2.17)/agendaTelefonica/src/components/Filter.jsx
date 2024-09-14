@@ -1,10 +1,10 @@
 import { useState } from "react"
 
-const Filter = ({persons}) => {
+const Filter = ({people}) => {
     const [filteredPersons, setfilterPersons] = useState([])
     const [filterText, setfilterText] = useState("")
 
-    let personsFilter = ""
+    let peopleFilter = ""
     let result = ""
     const newFilterEventHandler = (event) => {
         event.preventDefault()
@@ -12,9 +12,9 @@ const Filter = ({persons}) => {
         console.log(filter)
         setfilterText(filter)
 
-        personsFilter = persons.filter((person) => person.name.includes(filter))
-        setfilterPersons(personsFilter)
-        console.log(personsFilter)
+        peopleFilter = people.filter((people) => people.name.includes(filter))
+        setfilterPersons(peopleFilter)
+        console.log(peopleFilter)
 
         result = filteredPersons.map((value) => <li key={value.id}>{value.name} {value.number}</li>) 
     }

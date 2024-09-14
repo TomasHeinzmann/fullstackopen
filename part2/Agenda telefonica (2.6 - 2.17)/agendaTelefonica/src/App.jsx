@@ -3,16 +3,18 @@ import People from './components/People'
 import Filter from './components/Filter'
 import Personform from './components/Personform'
 import peopleServices from './components/Services'
-import axios from "axios"
+import Notifications from './components/Notification'
+
 const App = () => {
   const [people, setPeople] = useState([]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
+  const [errorMessage, seterrorMessage] = useState(null)
+  const [successMessage, setsuccessMessage] = useState(null)
 
   useEffect(() => {
     peopleServices.getAll().then(initialpeople => {setPeople(initialpeople)})
   }, [])
-  console.log(people)
 
   const newnameEventhandler = (event) => {
     event.preventDefault()
@@ -50,6 +52,16 @@ const App = () => {
         setPeople(copypeople)
         setNewName("")
       })
+      .catch( error =>{
+        seterrorMessage(
+          `Person ${newName} was already removed from the server`
+        )
+        setTimeout(() => {
+          seterrorMessage(null)
+        }, 5000)
+        setPeople(people.filter(n => n.id !== idFound))
+      }
+      )
     } else if (foundNumber) {
       alert(`${newNumber} is already added to phonebook`)
     } else {
@@ -58,6 +70,12 @@ const App = () => {
         setPeople(people.concat(response))
         setNewName("")
       })
+      setsuccessMessage(
+        `${newName} correctly added to the phonebook`
+      )
+      setTimeout(() => {
+        setsuccessMessage(null)
+      }, 5000)
       
     }
   }
@@ -70,6 +88,8 @@ const App = () => {
 
   return (
     <div>
+      <Notifications.ErrorNotification message={errorMessage}/>
+      <Notifications.SuccessNotification message={successMessage}/>
       <Filter people={people}/>
       <h2>Phonebook</h2>
       <Personform newPerson={newPerson} newnameEventhandler={newnameEventhandler} newnumberEventhandler={newnumberEventhandler}/>
