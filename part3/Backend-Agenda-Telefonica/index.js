@@ -1,24 +1,9 @@
 const express = require("express")
 const morgan = require("morgan")
 const app = express()
+const cors = require('cors')
 
-function simpleStringify (object){
-    var simpleObject = {};
-    for (var prop in object ){
-        if (!object.hasOwnProperty(prop)){
-            continue;
-        }
-        if (typeof(object[prop]) == 'object'){
-            continue;
-        }
-        if (typeof(object[prop]) == 'function'){
-            continue;
-        }
-        simpleObject[prop] = object[prop];
-    }
-    return JSON.stringify(simpleObject); 
-};
-
+app.use(cors())
 let people = [
     { 
     "id": 1,
@@ -77,10 +62,12 @@ app.delete("/api/numbers/:id", (request, response) =>{
     response.status(204).end()
 })
 
-app.use(morgan(":method :url :status :response-time ms"))
+//app.use(morgan(":method :url :status :response-time ms"))
+app.use(express.json())
 
 app.post("/api/numbers", (request, response) => {
-    const person = JSON.parse(JSON.stringify(request))
+    console.log(request.body)
+    const person = request.body
     console.log(person)
     const name = person.name
     person.id = Math.floor(Math.random() * 999999)
