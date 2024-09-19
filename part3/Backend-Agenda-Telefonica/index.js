@@ -29,8 +29,7 @@ let people = [
 
 app.use(morgan("tiny"))
 
-
-app.get("/api/numbers", (request, response) => {
+app.get("numbers.com", (request, response) => {
     response.json(people)
 })
 
