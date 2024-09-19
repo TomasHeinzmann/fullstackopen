@@ -31,7 +31,7 @@ app.use(morgan("tiny"))
 
 app.get("/", (request, response) => response.json(people))
 
-app.get("/api/numbers/:id", (request, response) => {
+app.get(":id", (request, response) => {
     const id = Number(request.params.id)
     const person = people.find(person => person.id === id)
 
@@ -42,7 +42,7 @@ app.get("/api/numbers/:id", (request, response) => {
     }
 })
 
-app.get("/api/info", (request, response) => {
+app.get("/info", (request, response) => {
     const nowDate = new Date()
     response.send(`
     <div>
@@ -53,7 +53,7 @@ app.get("/api/info", (request, response) => {
     `)
 })
 
-app.delete("/api/numbers/:id", (request, response) =>{
+app.delete("/:id", (request, response) =>{
     const id = Number(request.params.id)
     people = people.filter(person => person.id !== id)
     response.status(204).end()
@@ -62,7 +62,7 @@ app.delete("/api/numbers/:id", (request, response) =>{
 //app.use(morgan(":method :url :status :response-time ms"))
 app.use(express.json())
 
-app.post("/api/numbers", (request, response) => {
+app.post("/", (request, response) => {
     console.log(request.body)
     const person = request.body
     console.log(person)
