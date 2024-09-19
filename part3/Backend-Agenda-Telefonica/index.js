@@ -31,7 +31,7 @@ app.use(morgan("tiny"))
 
 app.get("/", (request, response) => response.json(people))
 
-app.get(":id", (request, response) => {
+app.get("/:id", (request, response) => {
     const id = Number(request.params.id)
     const person = people.find(person => person.id === id)
 
