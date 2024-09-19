@@ -29,9 +29,7 @@ let people = [
 
 app.use(morgan("tiny"))
 
-app.get("numbers.com", (request, response) => {
-    response.json(people)
-})
+app.get("/", (request, response) => response.json.send(people))
 
 app.get("/api/numbers/:id", (request, response) => {
     const id = Number(request.params.id)
