@@ -1,9 +1,10 @@
 const express = require("express")
-const morgan = require("morgan")
 const app = express()
 const cors = require('cors')
 
 app.use(cors())
+app.use(express.static('dist'))
+
 let people = [
     { 
     "id": 1,
@@ -26,8 +27,6 @@ let people = [
     "number": "39-23-6423122"
     }
 ]
-
-app.use(morgan("tiny"))
 
 app.get("/", (request, response) => response.json(people))
 
@@ -59,7 +58,6 @@ app.delete("/:id", (request, response) =>{
     response.status(204).end()
 })
 
-//app.use(morgan(":method :url :status :response-time ms"))
 app.use(express.json())
 
 app.post("/", (request, response) => {

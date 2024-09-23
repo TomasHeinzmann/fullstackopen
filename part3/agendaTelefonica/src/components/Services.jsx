@@ -1,5 +1,5 @@
 import axios from "axios"
-const baseURL = "https://fullstackopen-8fdj.onrender.com"
+const baseURL = "https://fullstackopen-8fdj.onrender.com/"
 
 const getAll = () => {
     const request = axios.get(baseURL)
