@@ -28,9 +28,11 @@ let people = [
     }
 ]
 
-app.get("/", (request, response) => response.json(people))
+app.get("/", (request, response) => response.render("./dist/index.html"))
 
-app.get("/:id", (request, response) => {
+app.get("/notes", (request, response) => response.json(people))
+
+app.get("/notes/:id", (request, response) => {
     const id = Number(request.params.id)
     const person = people.find(person => person.id === id)
 
@@ -52,7 +54,7 @@ app.get("/info", (request, response) => {
     `)
 })
 
-app.delete("/:id", (request, response) =>{
+app.delete("/notes/:id", (request, response) =>{
     const id = Number(request.params.id)
     people = people.filter(person => person.id !== id)
     response.status(204).end()
@@ -60,7 +62,7 @@ app.delete("/:id", (request, response) =>{
 
 app.use(express.json())
 
-app.post("/", (request, response) => {
+app.post("/notes", (request, response) => {
     console.log(request.body)
     const person = request.body
     console.log(person)
